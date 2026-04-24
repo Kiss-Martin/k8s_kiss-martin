@@ -14,11 +14,7 @@ spec:
     spec:
       containers:
         - name: k8s-beadando-backend-container
-<<<<<<< HEAD
           image: ghcr.io/Kiss-Martin/k8s_beadando-backend:1777016419
-=======
-          image: ghcr.io/zalan0815/k8s_beadando-backend:1777016940
->>>>>>> 039f9b5929a904d91c7eb1f00497f359e556cf9a
           ports:
             - containerPort: 3000
       imagePullSecrets:
