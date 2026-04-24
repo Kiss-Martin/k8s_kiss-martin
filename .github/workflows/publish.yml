@@ -1,0 +1,49 @@
+name: Docker Image CI
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+permissions:
+  contents: write
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: generate image tag
+      run: |
+        echo "IMAGE_TAG=$(date +%s)" >> $GITHUB_ENV
+
+
+    - uses: actions/checkout@v4
+    - name: Build the Docker image
+      run: |
+        docker build . --file Dockerfile --tag ghcr.io/kiss-martin/k8s-cicd-13c:$IMAGE_TAG        
+        docker login ghcr.io -u kiss-martin -p ${{ secrets.GHCR_TOKEN }}
+        docker push ghcr.io/kiss-martin/k8s-cicd-13c:$IMAGE_TAG
+
+        sed -i 's|image: ghcr.io/kiss-martin/k8s-cicd-13c:.*|image: ghcr.io/kiss-martin/k8s-cicd-13c:'"$IMAGE_TAG"'|' deployment.yaml
+
+        git config --global user.name "Kiss-Martin"
+        git config --global user.email "kiss.martin@students.jedlik.eu"
+        git add deployment.yaml
+        git commit -m "update K8S deployment.yaml file"        
+        git push
+
+        mkdir -p ~/.kube
+        echo "${{ secrets.K8S_CONFIG_BASE64 }}" | base64 -d > ~/.kube/config
+        kubectl apply -f deployment.yaml
+
+
+
+
+# $bytes = [System.IO.File]::ReadAllBytes("$env:USERPROFILE/.kube/config")
+# [System.Convert]::ToBase64String($bytes)
