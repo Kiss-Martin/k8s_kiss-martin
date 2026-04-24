@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <title>Oscar nyertesek</title>
+</head>
+<body>
+
+  <h1>Oscar díj nyertes (Legjobb film)</h1>
+
+  <select id="yearSelect">
+    <option value="">Válassz évet</option>
+    <option value="2020">2020</option>
+    <option value="2021">2021</option>
+    <option value="2022">2022</option>
+    <option value="2023">2023</option>
+    <option value="2024">2024</option>
+    <option value="2025">2025</option>
+  </select>
+
+  <p id="result"></p>
+
+  <script>
+    const select = document.getElementById("yearSelect");
+    const result = document.getElementById("result");
+
+    select.addEventListener("change", async () => {
+      const year = select.value;
+
+      if (!year) return;
+
+      const res = await fetch(`http://api-k8s-beadando-tofalvizalan.jcloud.jedlik.cloud/oscar/${year}`);
+      const data = await res.json();
+
+      if (data.error) {
+        result.innerText = data.error;
+      } else {
+        result.innerText = `${data.year} nyertese: ${data.winner}`;
+      }
+    });
+  </script>
+
+</body>
+</html>
