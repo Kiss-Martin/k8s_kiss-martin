@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: k8s-beadando-backend-container
-          image: ghcr.io/Kiss-Martin/k8s_beadando-backend:1777016419
+          image: ghcr.io/kiss-martin/k8s-cicd-13c-backend:1777016419
           ports:
             - containerPort: 3000
       imagePullSecrets:
@@ -38,7 +38,7 @@ spec:
     spec:
       containers:
         - name: k8s-beadando-frontend-container
-          image: ghcr.io/Kiss-Martin/k8s_beadando-frontend:1777016419
+          image: ghcr.io/kiss-martin/k8s-cicd-13c-frontend:1777016419
           ports:
             - containerPort: 80
       imagePullSecrets:
@@ -81,7 +81,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: api-k8s-beadando-tofalvizalan.jcloud.jedlik.cloud
+    - host: api-k8s-beadando-kiss-martin.jcloud.jedlik.cloud
       http:
         paths:
           - path: /
@@ -92,7 +92,7 @@ spec:
                 port:
                   number: 80
 
-    - host: k8s-beadando-tofalvizalan.jcloud.jedlik.cloud
+    - host: k8s-beadando-kiss-martin.jcloud.jedlik.cloud
       http:
         paths:
           - path: /

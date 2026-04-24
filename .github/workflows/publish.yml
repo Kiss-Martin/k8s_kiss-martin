@@ -26,12 +26,15 @@ jobs:
     - uses: actions/checkout@v4
     - name: Build the Docker image
       run: |
-        docker build . --file Dockerfile --tag ghcr.io/kiss-martin/k8s-cicd-13c:$IMAGE_TAG        
+        docker build ./backend --file ./backend/Dockerfile --tag ghcr.io/kiss-martin/k8s-cicd-13c-backend:$IMAGE_TAG        
+        docker build ./frontend --file ./frontend/Dockerfile --tag ghcr.io/kiss-martin/k8s-cicd-13c-frontend:$IMAGE_TAG        
         docker login ghcr.io -u kiss-martin -p ${{ secrets.GHCR_TOKEN }}
-        docker push ghcr.io/kiss-martin/k8s-cicd-13c:$IMAGE_TAG
+        docker push ghcr.io/kiss-martin/k8s-cicd-13c-backend:$IMAGE_TAG
+        docker push ghcr.io/kiss-martin/k8s-cicd-13c-frontend:$IMAGE_TAG
 
-        sed -i 's|image: ghcr.io/kiss-martin/k8s-cicd-13c:.*|image: ghcr.io/kiss-martin/k8s-cicd-13c:'"$IMAGE_TAG"'|' deployment.yaml
-
+        sed -i 's|image: ghcr.io/kiss-martin/k8s-cicd-13c:.*|image: ghcr.io/kiss-martin/k8s-cicd-13c-backend:'"$IMAGE_TAG"'|' deployment.yaml
+        sed -i 's|image: ghcr.io/kiss-martin/k8s-cicd-13c:.*|image: ghcr.io/kiss-martin/k8s-cicd-13c-frontend:'"$IMAGE_TAG"'|' deployment.yaml
+        
         git config --global user.name "Kiss-Martin"
         git config --global user.email "kiss.martin@students.jedlik.eu"
         git add deployment.yaml
