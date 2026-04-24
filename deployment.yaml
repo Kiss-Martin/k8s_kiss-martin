@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: k8s-beadando-backend-container
-          image: ghcr.io/kiss-martin/k8s-cicd-13c-backend:1777018985
+          image: ghcr.io/kiss-martin/k8s-cicd-13c-backend:1777019346
           ports:
             - containerPort: 3000
       imagePullSecrets:
@@ -38,7 +38,7 @@ spec:
     spec:
       containers:
         - name: k8s-beadando-frontend-container
-          image: ghcr.io/kiss-martin/k8s-cicd-13c-frontend:1777018985
+          image: ghcr.io/kiss-martin/k8s-cicd-13c-frontend:1777019346
           ports:
             - containerPort: 80
       imagePullSecrets:
