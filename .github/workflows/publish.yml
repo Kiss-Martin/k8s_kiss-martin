@@ -32,8 +32,8 @@ jobs:
         docker push ghcr.io/kiss-martin/k8s-cicd-13c-backend:$IMAGE_TAG
         docker push ghcr.io/kiss-martin/k8s-cicd-13c-frontend:$IMAGE_TAG
 
-        sed -i 's|image: ghcr.io/kiss-martin/k8s-cicd-13c:.*|image: ghcr.io/kiss-martin/k8s-cicd-13c-backend:'"$IMAGE_TAG"'|' deployment.yaml
-        sed -i 's|image: ghcr.io/kiss-martin/k8s-cicd-13c:.*|image: ghcr.io/kiss-martin/k8s-cicd-13c-frontend:'"$IMAGE_TAG"'|' deployment.yaml
+        sed -i 's|image: ghcr.io/kiss-martin/k8s-cicd-13c-backend:.*|image: ghcr.io/kiss-martin/k8s-cicd-13c-backend:'"$IMAGE_TAG"'|' deployment.yaml
+        sed -i 's|image: ghcr.io/kiss-martin/k8s-cicd-13c-frontend:.*|image: ghcr.io/kiss-martin/k8s-cicd-13c-frontend:'"$IMAGE_TAG"'|' deployment.yaml
         
         git config --global user.name "Kiss-Martin"
         git config --global user.email "kiss.martin@students.jedlik.eu"
