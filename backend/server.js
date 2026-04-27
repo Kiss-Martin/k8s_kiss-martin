@@ -13,7 +13,7 @@ const directors = {
   "Christopher Nolan": "Oppenheimer"
 };
 
-app.get("/director/:name", (req, res) => {
+app.get("/directors/:name", (req, res) => {
   const name = decodeURIComponent(req.params.name);
   const movie = directors[name];
 
